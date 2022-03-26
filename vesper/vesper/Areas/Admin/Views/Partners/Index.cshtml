@@ -1,0 +1,72 @@
+﻿@model List<Partner>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Partners</h6>
+    </div>
+    <div class="card-body">
+        <select class="form-control mb-3" id="sort">
+            <option value="@ViewBag.sort" selected>@ViewBag.sort</option>
+            <option value="id">Id-ye gore</option>
+            <option value="az">Ada gore A-Z</option>
+            <option value="za">Ada gore Z-A</option>
+        </select>
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Logo</th>
+                        <th>Name</th>
+                        <th>Settings</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Partner item in Model)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>
+                                <img src="~/assets/img/clients/@item.Img" style="width:50px" />
+                            </td>
+                            <td>@item.Name</td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary mr-1">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning mr-1">
+                                    <i class="fas fa-fw fa-wrench"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mr-1">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item @((int)ViewBag.page==1?"disabled":"")"><a class="page-link" asp-action="Index" asp-route-page="@((int)ViewBag.page-1)" asp-route-sort="@ViewBag.sort">Previous</a></li>
+                    @for (int i = 1; i <= (int)ViewBag.PageCount; i++)
+                    {
+                        <li class="page-item @((int)ViewBag.page==i?"active":"")"><a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-sort="@ViewBag.sort">@i</a></li>
+                    }
+                    <li class="page-item @((int)ViewBag.page==ViewBag.PageCount?"disabled":"")"><a class="page-link" asp-action="Index" asp-route-page="@((int)ViewBag.page+1)" asp-route-sort="@ViewBag.sort">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @*<script src="~/admin/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="~/admin/js/demo/datatables-demo.js"></script>*@
+    <script>
+        $("#sort").change(function () {
+            window.location.href = "/Admin/Partners?page=@((int)ViewBag.page)&sort=" + $("#sort").val()
+        })
+    </script>
+}

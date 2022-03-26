@@ -1,0 +1,33 @@
+﻿
+@model AppUser
+<main id="main">
+    <section class="mt-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-3 text-center">
+                    @if (!string.IsNullOrEmpty(Model.ProfilePhoto))
+                    {
+                        <img src="~/assets/img/users/@Model.ProfilePhoto" class="w-100" style="border-radius:100%" />
+                    }
+                    else
+                    {
+                        <img src="~/assets/img/defPerson.jpg" class="w-100" style="border-radius:100%" />
+
+                    }
+                    <h3 class="mt-5">@Model.FullName</h3>
+                    <p class="small">@("@"+Model.UserName) | @Model.Email</p>
+                </div>
+            </div>
+            <div class="row mt-4">
+                @foreach (Post item in Model.Posts)
+                {
+                    <div class="col-md-3 mb-4">
+                        <img src="~/assets/img/posts/@item.Img" class="w-100 rounded" />
+                        <h4 class="mt-2">@item.Title</h4>
+                        <p>@item.Subtitle</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</main>

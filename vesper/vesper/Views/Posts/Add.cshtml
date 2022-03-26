@@ -1,0 +1,31 @@
+﻿
+@model Post
+<main id="main">
+    <section class="mt-5">
+        <div class="container">
+            <h1 class="mb-2">Add Post</h1>
+            <form action="/posts/add" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Title"></label>
+                        <input class="form-control" asp-for="Title">
+                        <span class="text-danger small" asp-validation-for="Title"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Subtitle"></label>
+                        <input class="form-control" asp-for="Subtitle">
+                        <span class="text-danger small" asp-validation-for="Subtitle"></span>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label asp-for="Image"></label>
+                        <input class="form-control" asp-for="Image">
+                        <span class="text-danger small" asp-validation-for="Image"></span>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success">Add Post</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</main>
